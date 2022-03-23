@@ -31,6 +31,8 @@ let routes = (app) => {
         router.post('/api/v1/oyo/room', authenticateToken, room.create);
         //Update Room with Owner cred
         router.put('/api/v1/oyo/room', authenticateToken, room.update);
+        //Export all the rooms with Owner cred
+        router.post('/api/v1/oyo/room/export', authenticateToken, room.export);
         //Delete room
         router.post('/api/v1/oyo/room/remove', authenticateToken, room.delete);
         //User Sign up
