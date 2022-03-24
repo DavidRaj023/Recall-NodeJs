@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize) =>{
+module.exports = (sequelize, Sequelize) => {
     const Hotel = sequelize.define('hotels', {
         name: {
             type: Sequelize.STRING

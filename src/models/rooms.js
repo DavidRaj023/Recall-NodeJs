@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize) =>{
+module.exports = (sequelize, Sequelize) => {
     const Rooms = sequelize.define('rooms', {
         roomId: {
             type: Sequelize.STRING
@@ -27,19 +27,19 @@ module.exports = (sequelize, Sequelize) =>{
         country: {
             type: Sequelize.STRING
         },
-        amenitiesList :{
+        amenitiesList: {
             type: Sequelize.STRING
         },
         likes: {
             type: Sequelize.INTEGER
         },
-        currentUserId :{
+        currentUserId: {
             type: Sequelize.STRING
         },
-        checkedInDate :{
+        checkedInDate: {
             type: Sequelize.DATE
         },
-        checkedOutDate :{
+        checkedOutDate: {
             type: Sequelize.DATE
         },
         status: {

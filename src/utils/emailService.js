@@ -4,7 +4,7 @@ const sendGridAPI = process.env.SENDGRID_API_KEY;
 
 
 //SMTP
-const sendMail = async(user, otp) =>{
+const sendMail = async (user, otp) => {
     try {
         console.log("From Email Service file");
         sgMail.setApiKey(sendGridAPI);
@@ -21,7 +21,7 @@ const sendMail = async(user, otp) =>{
 }
 
 //SMTP
-const sendMailSignUp = async(user, otp) =>{
+const sendMailSignUp = async (user, otp) => {
     try {
         console.log("From Email Service file");
         sgMail.setApiKey(sendGridAPI);
@@ -37,7 +37,7 @@ const sendMailSignUp = async(user, otp) =>{
     }
 }
 
-module.exports ={
+module.exports = {
     sendMail,
     sendMailSignUp
 }

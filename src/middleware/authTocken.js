@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config =require('../config/authConfig');
+const config = require('../config/authConfig');
 
-function authenticateToken (req, res, next) {
+function authenticateToken(req, res, next) {
   const token = req.headers.authtoken;
 
   if (token == null) return res.sendStatus(401);

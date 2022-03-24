@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize) =>{
+module.exports = (sequelize, Sequelize) => {
     const Admin = sequelize.define('admin', {
         name: {
             type: Sequelize.STRING

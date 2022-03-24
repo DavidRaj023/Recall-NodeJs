@@ -4,7 +4,9 @@ const app = express();
 const appRouter = require('./router/appRoutes');
 const PORT = process.env.PORT || 3000
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(express.json());
 
 
@@ -15,8 +17,6 @@ db.sequelize.sync();
 //   console.log("Drop and re-sync db.");
 // });
 appRouter(app);
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log("Server started and running in port: " + PORT);
 });
-
-

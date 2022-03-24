@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize) =>{
+module.exports = (sequelize, Sequelize) => {
     const Owner = sequelize.define('owner', {
         name: {
             type: Sequelize.STRING
@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) =>{
         password: {
             type: Sequelize.STRING
         },
-        otp:{
+        otp: {
             type: Sequelize.STRING
         },
         token: {

@@ -1,7 +1,6 @@
-
 const ExcelJs = require('exceljs');
 
-exports.excelWriteAll = async(data, headers, filePath) => {
+exports.excelWriteAll = async (data, headers, filePath) => {
     const workbook = new ExcelJs.Workbook();
     const worksheet = workbook.addWorksheet('Cloud_EMS');
     worksheet.columns = headers;

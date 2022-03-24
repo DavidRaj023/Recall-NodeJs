@@ -30,4 +30,3 @@ db.Owner = require('../models/owner')(sequelize, Sequelize);
 db.Room = require('../models/rooms')(sequelize, Sequelize);
 db.User = require('../models/user')(sequelize, Sequelize);
 module.exports = db;
-

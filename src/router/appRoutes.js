@@ -41,8 +41,8 @@ let routes = (app) => {
         router.post('/api/v1/oyo/user/signin', user.signin);
         //Search for room
         //router.get('/api/v1/oyo/room/search',authenticateToken, room.search);
-        
-        app.use(router);    
+
+        app.use(router);
     } catch (error) {
         console.log(error);
     }

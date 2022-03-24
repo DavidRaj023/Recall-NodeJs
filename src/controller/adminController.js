@@ -5,30 +5,30 @@ const util = require('../utils/util');
 const Admin = db.Admin;
 
 //Create new Admin
-exports.create = async(req, res) => {
+exports.create = async (req, res) => {
   try {
     //Validate Body
-    if(!req.body){
+    if (!req.body) {
       return res.status(400).send({
         message: "Request cannot be empty.. Please fill the required field"
       })
     }
-    
+
     //Validate username and password
-    if((!req.body.userName) || (!req.body.password)){
+    if ((!req.body.userName) || (!req.body.password)) {
       return res.status(400).send({
         message: "Please fill the username / password field"
       })
     }
-    
+
     //Check email and User name
     const email = await util.check('email', req.body.email);
-    if(email){
+    if (email) {
       throw new Error("Given email is already regsterd");
     }
 
     const userName = await util.check('userName', req.body.userName);
-    if(userName){
+    if (userName) {
       throw new Error("Given username is already regsterd");
     }
 
@@ -62,10 +62,10 @@ exports.create = async(req, res) => {
   }
 }
 
-exports.login = async(req, res) =>{
+exports.login = async (req, res) => {
   try {
-     //Validate username and password
-    if((!req.body.userName) || (!req.body.password)){
+    //Validate username and password
+    if ((!req.body.userName) || (!req.body.password)) {
       return res.status(400).send({
         message: "Please fill the username / password field"
       })
@@ -78,7 +78,7 @@ exports.login = async(req, res) =>{
     }
     //const adminDetails = userNameList.dataValues;
     const password = await bcrypt.compare(req.body.password, userNameList.dataValues.password);
-    if(!password){
+    if (!password) {
       console.log('Invalid Email ID or Password!');
       return res.status(400).send('Invalid Email ID or Password!');
     }
@@ -86,7 +86,7 @@ exports.login = async(req, res) =>{
     //Create token and store into admin table
     const token = await util.generateAuthToken(userNameList.dataValues.email);
     util.updateToken(Admin, userNameList.dataValues.id, token);
-    
+
     return res.status(200).send({
       "message": `Welcome ${userNameList.dataValues.name} `,
       "token": token
@@ -96,31 +96,37 @@ exports.login = async(req, res) =>{
     console.log(err);
     res.status(400).send({
       message: err.message || "Something went wrong while login"
-    })    
+    })
   }
 }
 
 //logout
-exports.logout = async(req, res) => {
+exports.logout = async (req, res) => {
   try {
     if (!req.body.userName) {
       return res.send({
         message: "Please enter the username."
       })
     }
-    Admin.update({token: null}, {where: {userName: req.body.userName}})
-    .then(num =>{
-      if(num == 1) return res.send({
-        message: "logged off successfully"
+    Admin.update({
+        token: null
+      }, {
+        where: {
+          userName: req.body.userName
+        }
       })
-      else return res.send({
-        message: "Unnable to log off.."
-      })
-      }).catch(err =>{
-          throw new Error (err.message);
+      .then(num => {
+        if (num == 1) return res.send({
+          message: "logged off successfully"
+        })
+        else return res.send({
+          message: "Unnable to log off.."
+        })
+      }).catch(err => {
+        throw new Error(err.message);
       })
   } catch (error) {
-      console.log(error);
-      res.status(400).send(error.message);
+    console.log(error);
+    res.status(400).send(error.message);
   }
 }

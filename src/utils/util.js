@@ -4,13 +4,21 @@ const otpGenerator = require('otp-generator');
 const db = require('../service/dbService');
 const Admin = db.Admin;
 
-exports.check = async(field, value) =>{
+exports.check = async (field, value) => {
     try {
         switch (field) {
             case 'email':
-                return await db.Admin.findOne({ where: {email: `${value}`} });
+                return await db.Admin.findOne({
+                    where: {
+                        email: `${value}`
+                    }
+                });
             case 'userName':
-                return await db.Admin.findOne({ where: {userName: `${value}`} }); 
+                return await db.Admin.findOne({
+                    where: {
+                        userName: `${value}`
+                    }
+                });
             default:
                 break;
         }
@@ -18,7 +26,7 @@ exports.check = async(field, value) =>{
         throw new Error(error);
     }
 }
-exports.verifyToken = async(token) =>{
+exports.verifyToken = async (token) => {
     try {
         let tokendata = jwt.verify(token, config.authSecret);
         // const pool = await poolPromise;
@@ -31,44 +39,54 @@ exports.verifyToken = async(token) =>{
     }
 }
 
-exports.generateAuthToken = async(id) => {
-    return token =jwt.sign({ _id: id}, config.authSecret, {expiresIn: '7 days'});
+exports.generateAuthToken = async (id) => {
+    return token = jwt.sign({
+        _id: id
+    }, config.authSecret, {
+        expiresIn: '7 days'
+    });
 }
 
 exports.numberFormatter = (value) => {
     return new Intl.NumberFormat().format(value);
 }
 
-exports.updateToken = async(table, id, data) => {
+exports.updateToken = async (table, id, data) => {
     try {
         console.log(table);
-        table.update({token: data}, 
-            {where: {id: id}
-        }).then(num =>{
-            if(num == 1) {
-                console.log("Token was updated successfully." );
-            } else{
+        table.update({
+            token: data
+        }, {
+            where: {
+                id: id
+            }
+        }).then(num => {
+            if (num == 1) {
+                console.log("Token was updated successfully.");
+            } else {
                 console.log(`Cannot update token for id = ${id}`);
             }
-        }).catch(err =>{
-            throw new Error (err.message || `Error updating Admin with id= ${id}`);
+        }).catch(err => {
+            throw new Error(err.message || `Error updating Admin with id= ${id}`);
         })
     } catch (error) {
-      throw new Error(error)
+        throw new Error(error)
     }
-  }
+}
 
-    // options - optional
-    // digits - Default: true true value includes digits in OTP
-    // lowerCaseAlphabets - Default: true true value includes lowercase alphabets in OTP
-    // upperCaseAlphabets - Default: true true value includes uppercase alphabets in OTP
-    // specialChars - Default: true true value includes special Characters in OTP
-  exports.otpGenerator = () =>{
-      try {
-        return otpGenerator.generate(6, {specialChars: false });
-      } catch (error) {
-          throw new Error(error);
-      }
-  }
+// options - optional
+// digits - Default: true true value includes digits in OTP
+// lowerCaseAlphabets - Default: true true value includes lowercase alphabets in OTP
+// upperCaseAlphabets - Default: true true value includes uppercase alphabets in OTP
+// specialChars - Default: true true value includes special Characters in OTP
+exports.otpGenerator = () => {
+    try {
+        return otpGenerator.generate(6, {
+            specialChars: false
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 
-  //module.exports = verifyToken;
+//module.exports = verifyToken;
